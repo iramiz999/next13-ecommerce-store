@@ -7,6 +7,7 @@ import useCart from '@/hooks/use-cart';
 
 import Summary from './components/summary'
 import CartItem from './components/cart-item';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export const revalidate = 0;
 
@@ -22,7 +23,14 @@ const CartPage = () => {
     return null;
   }
 
+  const initialOptions = {
+    clientId: "AU-CJPNGblGUK7lWrYdKUTRtfwqohqZm7mKROpqNftvP9divA3vU3eAX3d8zxR1PKtSsIvRkx5SN9We7",
+    currency: "USD",
+    intent: "capture",
+  };
   return (
+    <PayPalScriptProvider options={initialOptions} >
+
     <div className="bg-white">
       <Container>
         <div className="px-4 py-16 sm:px-6 lg:px-8">
@@ -36,11 +44,15 @@ const CartPage = () => {
                 ))}
               </ul>
             </div>
+            
             <Summary />
+            
           </div>
         </div>
       </Container>
     </div>
+    </PayPalScriptProvider>
+
   )
 };
 
